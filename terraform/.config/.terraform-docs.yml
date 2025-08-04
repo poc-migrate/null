@@ -1,0 +1,60 @@
+# # see: https://terraform-docs.io/user-guide/configuration/version
+# version: ">= 0.10, < 0.12"
+
+# see: https://terraform-docs.io/user-guide/configuration/formatter
+formatter: markdown table
+
+# see: https://terraform-docs.io/user-guide/configuration/header-from
+header-from: .config/terraform_docs_header.md
+
+# see: https://terraform-docs.io/user-guide/configuration/footer-from
+footer-from: .config/terraform_docs_footer.md
+
+# see: https://terraform-docs.io/user-guide/configuration/recursive
+# recursive:
+#   enabled: true
+
+# see: https://terraform-docs.io/user-guide/configuration/sections
+sections:
+  show:
+    - data-sources
+    - requirements
+    - header
+    - inputs
+    - outputs
+    - providers
+    - modules
+    - footer
+    - resources
+
+# # see: https://terraform-docs.io/user-guide/configuration/output
+output:
+  file: README.md
+  mode: replace
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    
+    {{ .Content }}
+
+    <!-- END_TF_DOCS -->
+
+# see: https://terraform-docs.io/user-guide/configuration/sort
+sort:
+  enabled: true
+  by: required
+
+# # https://terraform-docs.io/user-guide/configuration/output-values/
+# output-values:
+#   enabled: false
+#   from: ""
+
+# see: https://terraform-docs.io/user-guide/configuration/settings
+settings:
+  indent: 4
+  escape: false
+  default: true
+  required: true
+  hide-empty: false
+  type: true
+  lockfile: true
+  sensitive: true

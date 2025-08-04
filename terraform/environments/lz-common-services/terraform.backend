@@ -1,0 +1,6 @@
+bucket               = "datum-controlplane-infrastructure-tfstate-621074188511"
+key                  = "bdo-aws-infrastructure/sandbox/terraform.tfstate"
+workspace_key_prefix = "bdo-aws-infrastructure/sandbox"
+region               = "ap-southeast-1"
+dynamodb_table       = "datum-controlplane-infrastructure-tfstate"
+encrypt              = true

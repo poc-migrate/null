@@ -1,0 +1,76 @@
+workflow:
+  id: servicenow
+  name: Incident Ticketing Creation
+  description: Create a ticket in ServiceNow and Microsoft Teams channel when an alert is triggered
+  disabled: false
+  triggers:
+    - events:
+        - created
+        - updated
+      type: incident
+    - type: alert
+      filters:
+        - key: source
+          value: r"(grafana|prometheus|datadog|dynatrace)"
+        - key: status
+          value: firing
+  consts: {}
+  owners: []
+  services: []
+  steps: []
+  actions:
+    - name: create-service-now-ticket
+      provider:
+        type: servicenow
+        config: "{{ providers.dev-instance }}"
+        with:
+          enrich_alert:
+            - key: ticket_type
+              value: servicenow
+            - key: ticket_id
+              value: results.sys_id
+            - key: ticket_url
+              value: results.link
+            - key: ticket_status
+              value: results.stage
+          table_name: INCIDENT
+          payload: {}
+    - name: teams-action
+      provider:
+        type: teams
+        config: "{{ providers.personal-test }}"
+        with:
+          message: ""
+          attachments:
+            - contentType: application/vnd.microsoft.card.adaptive
+              contentUrl: null
+              content:
+                $schema: http://adaptivecards.io/schemas/adaptive-card.json
+                type: AdaptiveCard
+                version: "1.2"
+                body:
+                  - type: TextBlock
+                    text: "{{alert.name}}"
+                    size: large
+                    weight: bolder
+                    wrap: true
+                    color: attention
+                  - type: FactSet
+                    facts:
+                      - title: "Severity:"
+                        value: "{{ alert.severity }}"
+                      - title: "Service:"
+                        value: "{{ alert.service }}"
+                      - title: "Status:"
+                        value: "{{ alert.status }}"
+                      - title: "Source:"
+                        value: "{{ alert.providerType }}"
+                      - title: "Description:"
+                        value: "{{ alert.description }}"
+                      - title: "Start At:"
+                        value: "{{ alert.startedAt }}"
+                actions:
+                  - type: Action.OpenUrl
+                    title: View incident in ServiceNow
+                    url: "{{alert.ticket_url}}"
+          typeCard: message

@@ -1,21 +1,14 @@
+image: node:18
+
 stages:
   - build
-  - test
-  - deploy
 
-build_job:
+build:
   stage: build
   script:
-    - echo "Starting build process..."
-    # Example for a Node.js project:
-    #- npm install # Install dependencies
-    #- npm run build # Run build script defined in package.json
-    # Example for a Java Maven project:
-    # - mvn clean install # Build the project with Maven
-    # Example for a Go project:
-    # - go build -o myapp . # Compile the Go application
-    - echo "Build completed successfully."
+    - cd examples
+    - npm ci
   artifacts:
     paths:
-      - build/ # Path to your compiled artifacts (e.g., dist, target, build)
-    expire_in: 1 day # Optional: Specify how long artifacts are kept
+      - examples/node_modules/
+    expire_in: 1 day

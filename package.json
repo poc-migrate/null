@@ -1,0 +1,14 @@
+{
+  "name": "repotest",
+  "version": "1.0.0",
+  "description": "Node.js examples repository",
+  "scripts": {
+    "build": "cd examples && npm ci"
+  },
+  "workspaces": [
+    "examples"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

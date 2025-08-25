@@ -7,7 +7,7 @@ build:
   stage: build
   script:
     - cd examples
-    - npm ci
+    - npm install
   artifacts:
     paths:
       - examples/node_modules/

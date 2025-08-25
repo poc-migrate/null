@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "mkdir -p dist && cp -r cli servers utilities package.json README.md dist/",
     "test:unit": "jest --coverage",
     "test:onlychanged": "jest --onlyChanged --coverage",
     "test:markdown": "markdownlint . --ignore-path .gitignore",

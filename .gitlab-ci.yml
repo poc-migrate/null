@@ -8,8 +8,6 @@ build:
   script:
     - cd examples
     - npm install
-    - cd ..
-    - ls -la examples/node_modules
   artifacts:
     paths:
       - examples/node_modules/

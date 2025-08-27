@@ -9,6 +9,7 @@ import tempfile
 import os
 import shutil
 
+
 @pytest.fixture(scope="session")
 def config():
     """Provides a merged configuration for the test suite."""
@@ -29,3 +30,8 @@ def config():
         }
     }
     return config
+def pytest_configure(config):
+    """Configure pytest with the merged configuration."""
+    config.addinivalue_line("markers", "reporting: mark test for reporting")
+    config.addinivalue_line("markers", "database: mark test for database operations")   
+    

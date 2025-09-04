@@ -1,0 +1,18 @@
+name: Scheduled - 
+on:
+  schedule:
+    - cron: ''
+  workflow_dispatch:
+env:
+  ENV: prod
+  DB_PASS: đahkja
+  ENDPOINT: rds
+jobs:
+  scheduled_job:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: 
+      run: |
+        echo "Running scheduled task: "
+        echo "Cron: "
